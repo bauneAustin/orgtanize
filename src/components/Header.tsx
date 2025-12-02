@@ -10,6 +10,7 @@ import {
   SquareFunction,
   StickyNote,
   X,
+  ClipboardCheck,
 } from 'lucide-react'
 
 export default function Header() {
@@ -20,7 +21,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
+      <header className="p-4 flex items-center bg-text-dark text-white shadow-lg">
         <button
           onClick={() => setIsOpen(true)}
           className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
@@ -28,14 +29,9 @@ export default function Header() {
         >
           <Menu size={24} />
         </button>
-        <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
-            <img
-              src="/tanstack-word-logo-white.svg"
-              alt="TanStack Logo"
-              className="h-10"
-            />
-          </Link>
+        <h1 className="ml-4 text-xl font-semibold flex items-center">
+          <ClipboardCheck size={40}/>
+	  <div className="ml-2">Orgtanize</div>
         </h1>
       </header>
 

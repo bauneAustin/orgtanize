@@ -1,5 +1,59 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #7DA7E6;
+  --color-primary-light: #B0CFFB;
+  --color-primary-dark: #4B7DC4;
+
+  --color-background-light: #E5F3FD;
+  --color-surface-light: #F5FBFF;
+
+  --color-accent: #A7C7E7;
+  --color-accent-light: #CFE3F5;
+  --color-accent-dark: #7FA7D3;
+
+  --color-text: #0E5585;
+  --color-text-light: #428BBA;
+  --color-text-dark: #033466;
+
+  --color-border: #E2E8E5;
+
+  --color-success: #9CC8A4;
+  --color-success-light: #CFE4CD;
+  --color-success-dark: #5C9469;
+
+  --color-danger: #E8A5A3;
+  --color-danger-light: #F5CECD;
+  --color-danger-dark: #C96D68;
+
+  --color-warning: #F3D57A;
+  --color-warning-light: #F7E3A5;
+  --color-warning-dark: #D6B64D;
+
+  --color-info: #7AC7E8;
+  --color-info-light: #CFE8F5;
+  --color-info-dark: #4B9AC0;
+
+  --color-blue: #7DA7E6;      /* soft calm blue */
+  --color-blue-light: #B0CFFB;
+  --color-blue-dark: #4B7DC4;
+
+  --color-yellow: #F3D57A;    /* soft pastel yellow */
+  --color-yellow-light: #F7E3A5;
+  --color-yellow-dark: #D6B64D;
+
+  --color-red: #E8A5A3;       /* soft red for alerts */
+  --color-red-light: #F5CECD;
+  --color-red-dark: #C96D68;
+
+  --color-purple: #C7A4E8;    /* gentle purple */
+  --color-purple-light: #E4D1F8;
+  --color-purple-dark: #9A75C9;
+
+  --color-orange: #F4A261;    /* warm muted orange */
+  --color-orange-light: #F8C69A;
+  --color-orange-dark: #D67B3D;
+}
 body {
   @apply m-0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
