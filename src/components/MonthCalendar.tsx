@@ -1,22 +1,7 @@
 import React, { ReactElement } from 'react';
+import { getDayDetails } from '../utils/DateUtils'
 
 const DAYS: string[] = ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'];
-const getDayDetails = () => {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth();
-    const firstDayOfMonth = new Date(year, month, 1);
-    const lastDayOfMonth = new Date(year, month + 1, 0);
-    const monthName = new Date().toLocaleString("default", { month: "long" });
-    const weekday = new Date().getDay();
-
-    return {
-        firstDayOfMonth,
-        lastDayOfMonth,
-        monthName,
-        year,
-        weekday
-    };
-};
 
 const MonthCalendar: React.FC = () => {
     const { firstDayOfMonth, lastDayOfMonth, monthName, year } = getDayDetails();
