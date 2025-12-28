@@ -1,4 +1,12 @@
-export const getDayDetails = () => {
+export type DayDetails = {
+    firstDayOfMonth: Date;
+    lastDayOfMonth: Date;
+    monthName: string;
+    year: number;
+    weekday: number;
+};
+
+export const getDayDetails = (): DayDetails => {
     const year = new Date().getFullYear();
     const month = new Date().getMonth();
     const firstDayOfMonth = new Date(year, month, 1);
@@ -15,8 +23,14 @@ export const getDayDetails = () => {
     };
 };
 
+export type CurrentWeekDetails = {
+    date: Date;
+    dayNumber: number;
+    dayName: string;
+    isToday: boolean;
+};
 
-export const getCurrentWeek = () => {
+export const getCurrentWeek = (): CurrentWeekDetails[] => {
     const today = new Date();
     const day = today.getDay();
 
