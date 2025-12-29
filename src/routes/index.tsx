@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
 import {
     ListTodo,
@@ -15,18 +15,21 @@ function App() {
             title: 'ToDo List',
             description:
                 'Keep track of important tasks with priorities, due dates, and categorization.',
+            to: 'todo'
         },
         {
             icon: <CalendarCheck2 className="w-12 h-12 text-primary-dark" />,
             title: 'Calendar',
             description:
                 'Integrate with Google Calendar for a quick view of upcoming events.',
+            to: 'calendar'
         },
         {
             icon: <ChartNoAxesCombined className="w-12 h-12 text-primary-dark" />,
             title: 'Analytics',
             description:
                 'See accomplished tasks and track your progression.',
+            to: 'analytics'
         },
     ]
 
@@ -63,18 +66,20 @@ function App() {
             <section className="py-16 px-6 max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {features.map((feature, index) => (
-                        <div
-                            key={index}
-                            className="bg-surface-light backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
-                        >
-                            <div className="mb-4">{feature.icon}</div>
-                            <h3 className="text-xl font-semibold text-text-dark mb-3">
-                                {feature.title}
-                            </h3>
-                            <p className="text-text leading-relaxed">
-                                {feature.description}
-                            </p>
-                        </div>
+                        <Link to={feature.to}>
+                            <div
+                                key={index}
+                                className="bg-surface-light backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
+                            >
+                                <div className="mb-4">{feature.icon}</div>
+                                <h3 className="text-xl font-semibold text-text-dark mb-3">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-text leading-relaxed">
+                                    {feature.description}
+                                </p>
+                            </div>
+                        </Link>
                     ))}
                 </div>
             </section>
