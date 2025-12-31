@@ -8,7 +8,6 @@ import {
     ChevronRight,
     Home,
     Menu,
-    Network,
     SquareFunction,
     StickyNote,
     X,
@@ -129,7 +128,7 @@ export default function Header() {
                     </Link>
 
                     <Link
-                        to="/demo/start/api-request"
+                        to="/todo"
                         onClick={() => setIsOpen(false)}
                         className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
                         activeProps={{
@@ -137,8 +136,8 @@ export default function Header() {
                                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
                         }}
                     >
-                        <Network size={20} />
-                        <span className="font-medium">Start - API Request</span>
+                        <ClipboardCheck size={20} />
+                        <span className="font-medium">Todo List</span>
                     </Link>
 
                     <div className="flex flex-row justify-between">
