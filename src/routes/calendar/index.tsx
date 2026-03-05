@@ -10,7 +10,7 @@ function RouteComponent() {
     return (
         <div className='flex h-screen'>
             <div className='w-64 bg-primary-dark'><MonthCalendar /></div>
-            <CalendarGrid />
+            <div className='flex-1 overflow-y-auto'><CalendarGrid /></div>
         </div>
     );
 }

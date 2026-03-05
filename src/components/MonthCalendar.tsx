@@ -1,43 +1,41 @@
 import React, { ReactElement } from 'react';
-import { getDayDetails } from '../utils/DateUtils'
+import { getDaysInMonth } from '../utils/DateUtils' // Import new function
 
 const DAYS: string[] = ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'];
 
 const MonthCalendar: React.FC = () => {
-    const { firstDayOfMonth, lastDayOfMonth, monthName, year } = getDayDetails();
+    const currentMonthDetails = getDaysInMonth(0); // Get details for the current month
+    const todayDate = new Date(); // To check for today's date
+
+    // Derive monthName and year from the first day of the current month's details
+    const monthName = currentMonthDetails[0].date.toLocaleString("default", { month: "long" });
+    const year = currentMonthDetails[0].date.getFullYear();
 
     const getDayHeaders = (): ReactElement[] => {
-        return DAYS.map(day => <div className='text-center' key={day}>{day}</div>);
+        return DAYS.map(day => <div className='text-center text-sm font-semibold text-gray-700' key={day}>{day}</div>);
     };
 
-    const getEmptyCells = (): ReactElement[] => {
-        let markup = [];
-        for (let i = 0; i < firstDayOfMonth.getDay(); i++) {
-            markup.push(<div className='text-center' key={`empty${i}`}>{' '}</div>);
-        }
-        return markup;
-    }
-
     const getDayCells = (): ReactElement[] => {
-        let markup = [];
-        const today = new Date().getDate();
-        for (let i = 1; i < lastDayOfMonth.getDate(); i++) {
-            if (i === today) {
-                markup.push(<div className='rounded-full w-6 aspect-square bg-primary-dark text-center text-warning' key={`day${i}`}>{i}</div>);
-            }
-            else {
-                markup.push(<div className='text-center' key={`day${i}`}>{i}</div>);
-            }
-        }
-        return markup;
-    }
+        return currentMonthDetails.map((dayDetail, index) => {
+            const { date, dayNumber, isToday, isCurrentMonth } = dayDetail;
+            const key = date.toISOString(); // Use the ISO string of the date for a stable key
+
+            return (
+                <div 
+                    className={`text-center py-1 text-sm ${isCurrentMonth ? '' : 'text-gray-400'} ${isToday ? 'rounded-full w-6 aspect-square bg-primary-dark text-warning mx-auto' : ''}`} 
+                    key={key}
+                >
+                    {dayNumber}
+                </div>
+            );
+        });
+    };
 
     return (
         <div className='bg-background-light m-2 p-2 rounded-md '>
-            <div className='font-bold'>{monthName} {year}</div>
-            <div className='grid grid-cols-7 gap-2'>
+            <div className='font-bold text-lg mb-2'>{monthName} {year}</div>
+            <div className='grid grid-cols-7 gap-1'>
                 {getDayHeaders()}
-                {getEmptyCells()}
                 {getDayCells()}
             </div>
         </div>

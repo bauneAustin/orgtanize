@@ -1,54 +1,71 @@
 export type DayDetails = {
-    firstDayOfMonth: Date;
-    lastDayOfMonth: Date;
-    monthName: string;
-    year: number;
-    weekday: number;
-};
-
-export const getDayDetails = (): DayDetails => {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth();
-    const firstDayOfMonth = new Date(year, month, 1);
-    const lastDayOfMonth = new Date(year, month + 1, 0);
-    const monthName = new Date().toLocaleString("default", { month: "long" });
-    const weekday = new Date().getDay();
-
-    return {
-        firstDayOfMonth,
-        lastDayOfMonth,
-        monthName,
-        year,
-        weekday
-    };
-};
-
-export type CurrentWeekDetails = {
     date: Date;
     dayNumber: number;
     dayName: string;
     isToday: boolean;
+    isCurrentMonth: boolean;
 };
 
-export const getCurrentWeek = (): CurrentWeekDetails[] => {
+export const getDaysInMonth = (monthOffset: number = 0): DayDetails[] => {
     const today = new Date();
-    const day = today.getDay();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
 
-    const diff = -day; // Sunday start
+    const targetDate = new Date(currentYear, currentMonth + monthOffset, 1);
+    const year = targetDate.getFullYear();
+    const month = targetDate.getMonth();
 
-    const startOfWeek = new Date(today)
-    startOfWeek.setDate(today.getDate() + diff)
+    const firstDayOfMonth = new Date(year, month, 1);
+    const lastDayOfMonth = new Date(year, month + 1, 0);
 
-    return Array.from({ length: 7 }).map((_, i) => {
-        const date = new Date(startOfWeek)
-        date.setDate(startOfWeek.getDate() + i)
+    const days: DayDetails[] = [];
 
-        return {
+    // Days from previous month
+    const startDay = firstDayOfMonth.getDay(); // 0 for Sunday, 1 for Monday, etc.
+    // Adjust startDay to be 0 for Monday, 6 for Sunday
+    const adjustedStartDay = startDay === 0 ? 6 : startDay - 1;
+
+    for (let i = adjustedStartDay; i > 0; i--) {
+        const date = new Date(firstDayOfMonth);
+        date.setDate(firstDayOfMonth.getDate() - i);
+        days.push({
             date,
             dayNumber: date.getDate(),
             dayName: date.toLocaleDateString(undefined, { weekday: 'long' }),
             isToday: date.toDateString() === today.toDateString(),
+            isCurrentMonth: false,
+        });
+    }
+
+    // Days of the current month
+    for (let i = 1; i <= lastDayOfMonth.getDate(); i++) {
+        const date = new Date(year, month, i);
+        days.push({
+            date,
+            dayNumber: i,
+            dayName: date.toLocaleDateString(undefined, { weekday: 'long' }),
+            isToday: date.toDateString() === today.toDateString(),
+            isCurrentMonth: true,
+        });
+    }
+
+    // Days from next month to fill the grid (up to 6 weeks)
+    const totalDays = days.length;
+    const remainingSlots = 42 - totalDays; // 6 weeks * 7 days
+    if (remainingSlots > 0) {
+        for (let i = 1; i <= remainingSlots; i++) {
+            const date = new Date(lastDayOfMonth);
+            date.setDate(lastDayOfMonth.getDate() + i);
+            days.push({
+                date,
+                dayNumber: date.getDate(),
+                dayName: date.toLocaleDateString(undefined, { weekday: 'long' }),
+                isToday: date.toDateString() === today.toDateString(),
+                isCurrentMonth: false,
+            });
         }
-    })
-}
+    }
+
+    return days;
+};
 
